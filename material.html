@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Videos | VLAB Chem</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://www.youtube.com/iframe_api"></script> <!-- Tambahkan YouTube Iframe API -->
+    <style>
+        /* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .left-panel {
+            flex: 3;
+            padding: 20px;
+            background-color: #f9f9f9;
+            overflow-y: auto;
+        }
+
+        .video-container {
+            width: 100%;
+            height: auto;
+            position: relative;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 400px;
+            border-radius: 8px;
+        }
+
+        .video-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #33a02c;
+            margin-top: 15px;
+        }
+
+        .video-description {
+            font-size: 16px;
+            color: #555;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        .sidebar {
+            flex: 1;
+            background-color: #ffffff;
+            border-left: 2px solid #e5e5e5;
+            padding: 20px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul li button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 10px 15px;
+            border: none;
+            background-color: #ffffff;
+            color: #333;
+            font-size: 16px;
+            text-align: left;
+            cursor: pointer;
+            position: relative;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .sidebar ul li button.active {
+            background-color: #00bcd4;
+            color: white;
+            font-weight: bold;
+        }
+
+        .check-box-wrapper {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .check-box-wrapper input {
+            display: none; /* Sembunyikan checkbox asli */
+        }
+
+        /* Menampilkan ikon centang hanya saat checkbox dicentang */
+        .check-box-wrapper input:checked + .checkmark {
+            background-color: #4caf50;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            font-family: 'Font Awesome 5 Free'; /* Font Awesome */
+            font-weight: 900;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; /* Sembunyikan centang secara default */
+        }
+
+        .checkmark:before {
+            content: '\f00c'; /* Unicode untuk ikon checkmark */
+            color: white;
+            font-size: 16px;
+        }
+
+        /* Tampilkan ikon centang saat checkbox dicentang */
+        .check-box-wrapper input:checked + .checkmark {
+            opacity: 1;
+        }
+
+        /* Tombol Home */
+        .home-button {
+            position: absolute;
+            bottom: 20px; /* Atur jarak bawah */
+            left: 50%;
+            transform: translateX(-50%); /* Posisi tombol di tengah horizontal */
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Responsif: Ketika layar lebih kecil dari 768px */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Pindahkan elemen ke kolom */
+            }
+
+            .sidebar {
+                border-left: none; /* Hapus border kiri */
+                border-top: 2px solid #e5e5e5; /* Tambahkan border atas */
+                margin-top: 20px; /* Tambahkan jarak atas */
+            }
+
+            .home-button {
+                margin-top: 20px; /* Tambahkan jarak atas untuk tombol home */
+                bottom: 0; /* Hapus pengaturan jarak bawah untuk kontrol lebih baik */
+                position: relative;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Bagian Video -->
+        <div class="left-panel">
+            <div class="video-container">
+                <iframe 
+                    id="video-frame"
+                    src="https://www.youtube.com/embed/1tvvSUySfls?si=ahC3ZSlLjYEmeKFE" 
+                    frameborder="0" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <!-- Judul Video -->
+            <div class="video-title" id="video-title">Introduction to Electrolysis</div>
+            <!-- Deskripsi Video -->
+            <div class="video-description" id="video-description">
+                Discover the fascinating world of electrolysis and redox reactions! Learn how galvanic elements generate electricity through spontaneous reactions, with zinc as the anode and copper as the cathode. Explore the reverse process in electrolytic elements, where external power drives non-spontaneous reactions, turning copper into zinc. Understand the role of electrode potentials and how electric current flows in both systems, creating a fundamental connection between chemistry and electricity. Dive into the principles of oxidation, reduction, and electrochemical reactions—essential knowledge for anyone interested in the science of energy and matter!
+            </div>
+        </div>
+
+        <!-- Sidebar Materi -->
+        <div class="sidebar">
+            <ul>
+                <li>
+                    <button class="active" data-title="Introduction to Electrolysis" data-video="https://www.youtube.com/embed/1tvvSUySfls?si=ahC3ZSlLjYEmeKFE" data-description="Discover the fascinating world of electrolysis and redox reactions! Learn how galvanic elements generate electricity through spontaneous reactions, with zinc as the anode and copper as the cathode. Explore the reverse process in electrolytic elements, where external power drives non-spontaneous reactions, turning copper into zinc. Understand the role of electrode potentials and how electric current flows in both systems, creating a fundamental connection between chemistry and electricity. Dive into the principles of oxidation, reduction, and electrochemical reactions—essential knowledge for anyone interested in the science of energy and matter!">
+                        1. Introduction to Electrolysis
+                        <label class="check-box-wrapper">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </button>
+                </li>
+                <li>
+                    <button data-title="Standard Reduction Potentials" data-video="https://www.youtube.com/embed/oAOq55MPJpM?si=2JoobQP-EbeCZmCx" data-description="Unlock the power of redox reactions with an easy-to-understand guide to standard reduction potentials! Discover how substances like silver, copper, and zinc interact in half-reactions, with a focus on electron exchange. Learn how the more positive the reduction potential, the stronger the tendency for a substance to be reduced, and how this impacts the overall redox reaction. Explore the concept of oxidation and reduction agents, and how these principles help us calculate electrode potentials in galvanic cells. Perfect for anyone diving into electrochemistry!">
+                        2. Standard Reduction Potentials
+                        <label class="check-box-wrapper">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </button>
+                </li>
+                <li>
+                    <button data-title="Free Energy and Cell Potential" data-video="https://www.youtube.com/embed/4tcLzVJdxZs?si=IFDfiPEYBTFi9cJ5" data-description="Unlock the secrets of galvanic cells and redox reactions with this deep dive into the relationship between cell potential and free energy! Learn how spontaneous oxidation-reduction reactions drive energy changes, and discover how to calculate the free energy and standard potential of a galvanic cell. From measuring potential with a voltmeter to understanding Faraday's constant and the formula for Delta G, this breakdown simplifies complex electrochemical concepts. Perfect for students and chemistry enthusiasts eager to grasp the fundamental principles of electrochemistry!">
+                        3. Free Energy and Cell Potential
+                        <label class="check-box-wrapper">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </button>
+                </li>
+                <li>
+                    <button data-title="Quantitative Electrolysis" data-video="https://www.youtube.com/embed/QEUsZeKYsgo?si=11YWexgT7elwxo0F" data-description="Take a deep dive into the quantitative aspects of electrolysis! Learn how to calculate the amount of substance produced at the electrodes, based on the number of moles of electrons transferred. Understand how factors like current, time, and Faraday's laws of electrolysis influence the reaction. Ideal for anyone studying electrochemistry and looking to get hands-on with the calculations behind electrolysis.">
+                        4. Quantitative Electrolysis
+                        <label class="check-box-wrapper">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </button>
+                </li>
+                <li>
+                    <button data-title="Using Reduction Potentials" data-video="https://www.youtube.com/embed/79OmpES_9OE?si=bICX77eS1POhr2Jb" data-description="Discover the fascinating world of redox reactions and electrochemistry! In this lesson, you'll learn how to use reduction potentials to predict the spontaneity of reactions and determine the product of electrolysis. Understand the difference between galvanic and electrolytic cells and how to use the standard reduction potential table to make predictions about half-reactions and electrode potentials. This guide simplifies complex concepts for students and science enthusiasts alike!">
+                        5. Using Reduction Potentials
+                        <label class="check-box-wrapper">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tombol Home -->
+            <div class="home-button">
+                <a href="./index.html">
+                    <img src="img/tombolhome.png" alt="Home" width="50px" style="cursor: pointer;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Script untuk mengubah video dan deskripsi
+        const buttons = document.querySelectorAll(".sidebar button");
+        const videoFrame = document.getElementById("video-frame");
+        const videoTitle = document.getElementById("video-title");
+        const videoDescription = document.getElementById("video-description");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", function () {
+                const videoUrl = this.getAttribute("data-video");
+                const title = this.getAttribute("data-title");
+                const description = this.getAttribute("data-description");
+
+                // Update video frame
+                videoFrame.src = videoUrl;
+
+                // Update judul dan deskripsi
+                videoTitle.textContent = title;
+                videoDescription.textContent = description;
+
+                // Update status aktif tombol
+                buttons.forEach(btn => btn.classList.remove("active"));
+                this.classList.add("active");
+            });
+        });
+    </script>
+</body>
+</html>

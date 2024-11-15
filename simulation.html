@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation | VLAB Chem</title>
+    <link rel="stylesheet" type="text/css" href="css/style_lab.css">
+</head>
+<body>
+    
+    <!-- Container for all the elements from background2 to instruction2 -->
+    <div class="simulation-container">
+        <div class="background2"></div>
+
+        <div class="home-button">
+            <a href="./index.html">
+                <img src="img/tombolhome.png" alt="Home" width="50px" style="cursor: pointer;">
+            </a>
+        </div>
+
+        <div class="row1">
+            <div class="row">
+                <div class="column">
+                    <img src="img/assets/mg.png" alt="" width="42px" draggable="true" ondragstart="drag(event)" id="mg">
+                </div>
+                <div class="column">
+                    <img src="img/assets/mn.png" alt="" width="42px" draggable="true" ondragstart="drag(event)" id="mn">
+                </div>
+                <div class="column">
+                    <img src="img/assets/pb.png" alt="" width="42px" draggable="true" ondragstart="drag(event)" id="pb">
+                </div>
+            </div>
+        </div>
+
+        <div class="row2">
+            <div class="row">
+                <div class="column">
+                    <img src="img/assets/zn.png" alt="" width="42px" draggable="true" ondragstart="drag(event)" id="zn">
+                </div>
+                <div class="column">
+                    <img src="img/assets/ba.png" alt="" width="42px" draggable="true" ondragstart="drag(event)" id="ba">
+                </div>
+                <div class="column">
+                    <img src="img/assets/li.png" alt="" width="42px" draggable="true" ondragstart="drag(event)" id="li">
+                </div>
+            </div>
+        </div>
+
+        <div class="position1">
+            <div>
+                <img src="img/assets/kotak.png" alt="" width="42px" ondrop="drop(event)" ondragover="allowDrop(event)" id="kotak">
+            </div>
+        </div>
+
+        <div class="position2">
+            <div class="restart-container">
+                <img src="img/assets/tombolulang.png" alt="" width="50px" id="restartBtn" onclick="restartPage()">
+            </div>
+        </div>
+
+        <div class="position3">
+            <img src="img/assets/voltmeter.png" alt="" width="9%">
+        </div>
+
+        <div class="position4">
+            <div id="displayText" style="position: absolute; top: 0; left: 0; font-size: 15px; color: white; display: none;">
+                <h1 id="nilaimg">2.37</h1>
+                <h1 id="nilaimn">1.18</h1>
+                <h1 id="nilaipb">0.13</h1>
+                <h1 id="nilaizn">0.76</h1>
+                <h1 id="nilaiba">2.90</h1>
+                <h1 id="nilaili">3.04</h1>
+            </div>
+        </div>  
+
+        <div id="instruction1" style="position: absolute; top: 175px; left: 535px; font-size: 13px; color: black; text-align: center;">
+            letakkan logam pada <br>kotak putus-putus <br>untuk melihat nilai <br>potensial elektroda
+        </div>
+
+        <div id="instruction2" style="position: absolute; top: 500px; left: 675px; font-size: 13px; color: black; display: none; white-space: nowrap;">
+            klik tombol restart untuk mencoba logam lainnya
+        </div>
+    </div> <!-- End of simulation-container -->
+
+    <script src="js/scripts.js"></script>
+
+</body>
+</html>

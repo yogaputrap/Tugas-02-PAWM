@@ -1,0 +1,238 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+body {
+    overflow: hidden; /* Mencegah scroll */
+    width: 100vw; /* Lebar 100% dari viewport */
+    height: 100vh; /* Tinggi 100% dari viewport */
+}
+.background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url("../img/bg1.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+    filter: blur(4px);
+}
+.button-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 45px; /* Space between the buttons */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px; /* Limit the maximum width of the container */
+}
+
+.button-container a {
+    display: inline-block;
+    width: 145px;
+    height: auto; /* Let the height scale with the width */
+}
+
+.button-container a img {
+    transition: 0.5s;
+    width: 100%; /* Ensure the button images scale responsively */
+    height: auto; /* Maintain the aspect ratio */
+}
+
+.button-container a:hover img {
+    filter: drop-shadow(0 0 35px var(--clr)); /* Add hover effect */
+}
+.header1{
+    width: 100%;
+    position: absolute;
+    top: 30px;
+    transform: translateY(-50%);
+    text-align: center;
+    color: #5bc6ca;
+    -webkit-text-stroke: 1px black;
+}
+.header1 h1{
+    font-size: 60px;
+    margin-top: 70px;
+    font-family: "Press Start 2P";
+}
+.header2{
+    width: 100%;
+    position: absolute;
+    top: 110px;
+    transform: translateY(-50%);
+    text-align: center;
+    color: #f59c8c;
+    -webkit-text-stroke: 0.5px black;
+}
+.header2 h2{
+    font-size: 30px;
+    margin-top: 35px;
+    font-family: "Press Start 2P";
+}
+.column{
+    float: left;
+    width: 6%;
+  }
+.row:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+.row1{
+    position: relative;
+    top: 165px;
+    left: 245px;
+}
+.row2{
+    position: relative;
+    top: 170px;
+    left: 245px;
+}
+.position1{
+    position: relative;
+    top: -30px;
+    left: 647px;
+}
+.position2{
+    position: relative;
+    top: -60px;
+    left: -420px;
+}
+.position3{
+    position: relative;
+    top: -375px;
+    left: 1200px;
+}
+.position4{
+    position: relative;
+    top: -512px;
+    left: 1215px;
+}
+#kotak {
+    position: relative;
+    z-index: 1; /* Kotak berada di belakang elemen lain */
+}
+
+.column img {
+    position: relative; /* Pastikan gambar dalam kolom juga relatif */
+    z-index: 2; /* Elemen yang dapat di-drag berada di depan kotak */
+}
+
+.dragging {
+    position: absolute; /* Mengubah posisi ke absolute saat dragging */
+    z-index: 9999; /* Elemen yang sedang di-drag memiliki z-index yang sangat tinggi */
+    opacity: 0.8; /* Membuat sedikit transparan untuk efek */
+    cursor: grabbing; /* Mengubah cursor saat dragging */
+}
+.restart-container {
+    position: absolute;
+    top: 10px; /* Posisi tombol restart di bagian atas */
+    right: 10px; /* Posisi di kanan */
+    z-index: 1000; /* Z-index tinggi agar tombol berada di atas elemen lain */
+}
+
+#restartBtn {
+    cursor: not-allowed; /* Ubah kursor menjadi not-allowed saat tidak bisa diklik */
+    opacity: 0.5; /* Setengah transparan */
+    pointer-events: none; /* Tidak dapat diklik */
+}
+
+#restartBtn.active {
+    cursor: pointer; /* Ubah kursor menjadi pointer saat hover di tombol restart */
+    opacity: 1; /* Tidak transparan */
+    pointer-events: auto; /* Dapat diklik */
+}
+.home-button {
+    position: absolute;
+    top: 70px; /* Atur posisi vertikal */
+    left: 1047px; /* Atur posisi horizontal */
+    z-index: 1000; /* Pastikan tombol berada di atas elemen lain */
+}
+
+@media (max-width: 1200px) {
+    .background {
+        background-position: center center; 
+    }
+
+    .background2 {
+        background-position: center center;
+        background-size: contain;
+    }
+
+    .header1 h1 {
+        font-size: 50px;
+    }
+
+    .header2 h2 {
+        font-size: 25px;
+    }
+
+    .button-container {
+        gap: 30px; /* Reduce gap between buttons on medium-sized screens */
+    }
+    .button-container a {
+        width: 120px; /* Resize buttons for smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .background {
+        background-position: center center;
+    }
+
+    .background2 {
+        background-position: center center;
+        background-size: contain;
+    }
+
+    .header1 h1 {
+        font-size: 40px;
+        margin-top: 50px;
+    }
+
+    .header2 h2 {
+        font-size: 20px;
+    }
+
+    .button-container {
+        gap: 15px; /* Further reduce gap between buttons */
+    }
+    .button-container a {
+        width: 100px; /* Resize buttons even more for mobile screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .background {
+        background-position: center center;
+    }
+
+    .background2 {
+        background-position: center center;
+        background-size: contain;
+    }
+
+    .header1 h1 {
+        font-size: 30px;
+        margin-top: 30px;
+    }
+
+    .header2 h2 {
+        font-size: 16px;
+    }
+
+    .button-container {
+        gap: 10px; /* Tighten up the space for smaller screens */
+    }
+    .button-container a {
+        width: 80px; /* Make buttons smaller on very small screens */
+    }
+}

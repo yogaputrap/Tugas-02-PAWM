@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLAB Chem - Virtual Laboratory Chemistry</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .user-icon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .user-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .user-icon:hover {
+            transform: scale(1.1); /* Membesarkan ikon */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Memberikan bayangan */
+        }
+        
+        .menu {
+            position: absolute;
+            width: 260px;
+            background-color: white;
+            top: 120px;
+            right: 15px;
+            border-radius: 20px;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .menu.active {
+            visibility: visible;
+            opacity: 1;
+            top: 90px;
+        }
+
+        .menu::before {
+            content: "";
+            background-color: white;
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            top: -8px;
+            right: 30px;
+            transform: rotate(45deg);
+        }
+
+        .menu p {
+            font-size: 1rem;
+            text-align: center;
+            color: #b9b9b9;
+            margin-bottom: 20px;
+        }
+
+        .menu ul {
+            margin-bottom: 20px;
+            list-style: none;
+        }
+
+        .menu ul li {
+            padding: 15px 20px;
+            border-top: 1px solid #33333310;
+            background: #ffffff;
+            transition: 0.5s;
+        }
+
+        .menu ul li:hover {
+            background: #e7e7e7;
+            cursor: pointer;
+        }
+
+        .menu ul li i {
+            font-size: 1.3rem;
+            color: #b4b4b4;
+            transition: 0.5s;
+        }
+
+        .menu ul li:hover i {
+            color: #111;
+        }
+
+        .menu ul li a {
+            font-size: 1.3rem;
+            color: #292929;
+            margin-left: -45px;
+            margin-right: -45px;
+            text-decoration: none;
+            text-align: end;
+            padding: 15px 98px 15px 99px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background"></div>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <img src="img/chem.gif" alt="" width="40%">
+    </div>    
+    <div class="header1">
+        <h1>V-LAB</h1>
+    </div>
+    <div class="header2">
+        <h2>POTENSIAL ELEKTRODA STANDAR</h2>
+    </div>
+
+    <div class="button-container">
+        <a class="a2" href="./pre_test.html" style="--clr:#f59c8c">
+            <img src="img/button1.png" alt="" width="145px">
+        </a>
+        <a href="./material.html" style="--clr:#f59c8c">
+            <img src="img/button2.png" alt="" width="145px">
+        </a>
+        <a class="a3" href="./simulation.html" style="--clr:#f59c8c">
+            <img src="img/button3.png" alt="" width="145px">
+        </a>
+    </div>
+
+    <div class="user-icon">
+        <img src="img/user.png" alt="">
+    </div>
+
+    <div class="menu">
+        <br>
+        <p id="userEmailDisplay">user@email.com</p>
+        <ul>
+            <li>
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <a href="./auth.html" class="logout-link">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        //-------------------- Java Script --------------------//
+        let profile = document.querySelector(".user-icon");
+        let menu = document.querySelector(".menu");
+
+        profile.addEventListener("click", ()=>{
+            menu.classList.toggle("active");
+        });
+        
+        // Close the menu when clicking anywhere outside of the menu or user icon
+        document.addEventListener("click", (event) => {
+            // If the click is outside the menu and user icon, close the menu
+            if (!profile.contains(event.target) && !menu.contains(event.target)) {
+                menu.classList.remove("active");
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const userEmail = localStorage.getItem('userEmail');
+            if (userEmail) {
+                document.getElementById('userEmailDisplay').textContent = userEmail;
+            }
+        });
+    </script>
+</body>
+</html>
