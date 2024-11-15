@@ -137,7 +137,7 @@
                             <button id="loginBtn" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
                         </div>
                         <div class="input-group mb-3">
-                            <button class="btn btn-lg btn-light w-100 fs-6"><img src="img/google.png" style="width:20px" class="me-2"><small>Sign In with Google</small></button>
+                            <button id="googleSignInBtn" class="btn btn-lg btn-light w-100 fs-6"><img src="img/google.png" style="width:20px" class="me-2"><small>Sign In with Google</small></button>
                         </div>
                         <div class="row">
                             <small>Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a></small>
@@ -174,7 +174,7 @@
                             <button id="signUpBtn" class="btn btn-lg btn-primary w-100 fs-6">Sign Up</button>
                         </div>
                         <div class="input-group mb-3">
-                            <button class="btn btn-lg btn-light w-100 fs-6"><img src="img/google.png" style="width:20px" class="me-2"><small>Sign Up with Google</small></button>
+                            <button id="googleSignUpBtn" class="btn btn-lg btn-light w-100 fs-6"><img src="img/google.png" style="width:20px" class="me-2"><small>Sign Up with Google</small></button>
                         </div>
                         <div class="row">
                             <small>Already have an account? <a href="#" onclick="showLogin()">Login</a></small>
@@ -641,6 +641,66 @@
             }, 500);
         }
         
+        document.getElementById('googleSignInBtn').addEventListener('click', function () {
+            const provider = new firebase.auth.GoogleAuthProvider();
+
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    // User successfully signed in
+                    const user = result.user;
+                    console.log('Google Sign-In successful:', user);
+
+                    // Simpan informasi pengguna ke localStorage
+                    localStorage.setItem('userEmail', user.email);
+
+                    // Redirect ke halaman utama
+                    window.location.href = 'index.html';
+                })
+                .catch((error) => {
+                    // Handle errors
+                    console.error('Error during Google Sign-In:', error);
+                    alert("Google Sign-In failed. Please try again.");
+                });
+        });
+
+        document.getElementById('googleSignUpBtn').addEventListener('click', function () {
+            const provider = new firebase.auth.GoogleAuthProvider();
+
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    const user = result.user;
+
+                    // Check if user is new (Sign-Up) or existing (Sign-In)
+                    if (result.additionalUserInfo.isNewUser) {
+                        console.log('New user signed up with Google:', user);
+
+                        // Optionally, store user info in Firestore or Realtime Database
+                        const userRef = firebase.firestore().collection('users').doc(user.uid);
+                        userRef.set({
+                            email: user.email,
+                            name: user.displayName,
+                            photoURL: user.photoURL,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        }).then(() => {
+                            console.log('User info saved in Firestore');
+                        }).catch((error) => {
+                            console.error('Error saving user info:', error);
+                        });
+                    } else {
+                        console.log('Existing user signed in with Google:', user);
+                    }
+
+                    // Save user email to localStorage
+                    localStorage.setItem('userEmail', user.email);
+
+                    // Redirect to index.html
+                    window.location.href = 'index.html';
+                })
+                .catch((error) => {
+                    console.error('Error during Google Sign-Up:', error);
+                    alert("Google Sign-Up failed. Please try again.");
+                });
+        });
     </script>    
 </body>
 </html>
