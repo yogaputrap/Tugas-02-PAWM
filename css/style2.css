@@ -173,6 +173,7 @@ body{
   align-items: center;
   font-size:14px;
   color:#606060;
+  white-space: normal; 
 }
 .status{
   padding:8px 12px;
