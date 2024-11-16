@@ -134,47 +134,46 @@ function displayQuestion(questionIndex) {
 }
 
 function checkAnswer(selectedIndex) {
-    // Get the selected answer from the user
-    attemptQuestion++;
-    answerContainer.style.pointerEvents="none"
-    clearInterval(timer);
-    let selectedAnswer = questions[currentQuestion].options[selectedIndex];
+  // Get the selected answer from the user
+  attemptQuestion++;  // Tambahkan 1 ke attemptQuestion
+  unattemptedQuestion--;  // Kurangi 1 dari unattemptedQuestion
+  answerContainer.style.pointerEvents = "none";  // Nonaktifkan pilihan jawaban
+  clearInterval(timer);
+  
+  let selectedAnswer = questions[currentQuestion].options[selectedIndex];
+  let correctAnswer = questions[currentQuestion].options[questions[currentQuestion].answer];
 
-    // Get the correct answer from the questions array
-    let correctAnswer = questions[currentQuestion].options[questions[currentQuestion].answer];
-
-    // Compare the selected answer to the correct answer
-    if (selectedAnswer === correctAnswer) {
+  // Compare the selected answer to the correct answer
+  if (selectedAnswer === correctAnswer) {
       score++;
-     setTimeout(()=>{
-       document.querySelectorAll("option")[selectedIndex].style.backgroundColor = "#37BB1169"
-       document.querySelectorAll("option")[selectedIndex].style.color = "#fff"
-       document.querySelectorAll("option")[selectedIndex].style.borderColor = "green"
-     },100)
-
-        userAnswers[currentQuestion] = selectedIndex;
-
-        // Display the correct answer and highlight it in green
-        
-    } else {
+      setTimeout(() => {
+          document.querySelectorAll("option")[selectedIndex].style.backgroundColor = "#37BB1169";
+          document.querySelectorAll("option")[selectedIndex].style.color = "#fff";
+          document.querySelectorAll("option")[selectedIndex].style.borderColor = "green";
+      }, 100);
+  } else {
       wrongQuestion++;
-       setTimeout(()=>{
-       document.querySelectorAll("option")[selectedIndex].style.backgroundColor = "#B6141469"
-       document.querySelectorAll("option")[selectedIndex].style.color = "#fff"
-       document.querySelectorAll("option")[selectedIndex].style.borderColor = "red"
-      document.querySelectorAll("option")[questions[currentQuestion].answer].style.backgroundColor="#37BB1169"
-      document.querySelectorAll("option")[questions[currentQuestion].answer].style.color="#fff"
-      document.querySelectorAll("option")[questions[currentQuestion].answer].style.borderColor="green"
-     },100)
-    }
+      setTimeout(() => {
+          document.querySelectorAll("option")[selectedIndex].style.backgroundColor = "#B6141469";
+          document.querySelectorAll("option")[selectedIndex].style.color = "#fff";
+          document.querySelectorAll("option")[selectedIndex].style.borderColor = "red";
+          document.querySelectorAll("option")[questions[currentQuestion].answer].style.backgroundColor = "#37BB1169";
+          document.querySelectorAll("option")[questions[currentQuestion].answer].style.color = "#fff";
+          document.querySelectorAll("option")[questions[currentQuestion].answer].style.borderColor = "green";
+      }, 100);
+  }
 }
 
 function nextQuestion() {
-  // Check if the user has answered all questions
-  answerContainer.style.pointerEvents = "initial";
+  // Jika pengguna belum menjawab pertanyaan (jawaban undefined), anggap ini sebagai unattempted
+  if (userAnswers[currentQuestion] === undefined) {
+      unattemptedQuestion++;
+  }
+
+  answerContainer.style.pointerEvents = "initial";  // Mengaktifkan pilihan jawaban lagi
   time.innerHTML = "30";  // Reset timer ke 30 detik untuk soal berikutnya
   updateProgress();
-  clearInterval(timer);  // Hentikan timer yang lama
+  clearInterval(timer);  // Hentikan timer lama
   timer = setInterval(updateTimer, 1000);  // Mulai timer baru
 
   answerContainer.innerHTML = "";  // Kosongkan pilihan jawaban
@@ -184,14 +183,14 @@ function nextQuestion() {
       resultCard.style.transform = "scale(1)";
       totalScore.innerHTML = questions.length;
       yourScore.innerHTML = score;
-      attempted.innerHTML = attemptQuestion;
-      unattempted.innerHTML = unattemptedQuestion;
+      attempted.innerHTML = attemptQuestion;  // Total attempted questions
+      unattempted.innerHTML = unattemptedQuestion;  // Total unattempted questions
       wrong.innerHTML = wrongQuestion;
       wrapper.style.width = "0";
       wrapper.style.transform = "scale(0)";
       endQuiz();
   } else {
-      // If there are more questions, update the currentQuestion variable and display the next question and its options
+      // Jika ada soal lain, lanjutkan ke soal berikutnya
       currentQuestion++;
       currentQuestionNum.innerHTML = currentQuestion + 1;
       displayQuestion(currentQuestion);
@@ -206,15 +205,17 @@ function updateTimer() {
   time.innerHTML = remainingTime > 9 ? remainingTime : "0" + remainingTime;
 
   // Update the progress bar
-  
-  // If the timer reaches 0, end the quiz
+
+  // Jika timer habis dan soal belum dijawab, anggap ini sebagai unattempted
   if (remainingTime === 0) {
-      unattemptedQuestion++;
+      if (userAnswers[currentQuestion] === undefined) {  // Jika soal belum dijawab
+          unattemptedQuestion++;  // Tambahkan ke unattempted
+      }
       document.querySelectorAll("option")[questions[currentQuestion].answer].style.backgroundColor = "#37BB1169"
       document.querySelectorAll("option")[questions[currentQuestion].answer].style.color = "#fff"
       document.querySelectorAll("option")[questions[currentQuestion].answer].style.borderColor = "green"
-      answerContainer.style.pointerEvents="none"
-      endQuiz();
+      answerContainer.style.pointerEvents = "none";  // Nonaktifkan pilihan setelah waktu habis
+      endQuiz();  // Panggil fungsi endQuiz
   }
 }
 
@@ -222,13 +223,54 @@ function updateProgress() {
  progressBar.style.width = (currentQuestion + 1)/questions.length * 100 + "%";
 }
 
-function endQuiz() {
-    // Stop the timer
-    clearInterval(timer);
-    
-    // Hide the question and option containers
-}
-
 nxtBtn.addEventListener("click",nextQuestion);
 totalQuestion.innerHTML = questions.length
 currentQuestionNum.innerHTML=currentQuestion + 1
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+      // If user is authenticated, use their email
+      const userEmail = user.email;
+  } else {
+      // If user is not authenticated, use guest or anonymous
+      const userEmail = "guest";
+  }
+});
+
+function endQuiz() {
+  // Stop the timer
+  clearInterval(timer);
+
+  // Get the user's email from localStorage or Firebase Authentication
+  const userEmail = localStorage.getItem('userEmail') || "guest"; // Use a default guest email if none is found
+
+  // Data to save into Firestore
+  const quizResults = {
+      userEmail: userEmail,
+      score: score,
+      totalScore: questions.length,
+      attemptedQuestions: attemptQuestion,
+      wrongQuestions: wrongQuestion,
+      unattemptedQuestions: unattemptedQuestion,
+      timestamp: new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })
+  };
+
+  // Save the quiz results to Firestore under a collection named 'quizResults'
+  db.collection('quizResults').add(quizResults)
+  .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+      // After storing the results, show the results card
+      resultCard.style.width = "300px";
+      resultCard.style.transform = "scale(1)";
+      totalScore.innerHTML = questions.length;
+      yourScore.innerHTML = score;
+      attempted.innerHTML = attemptQuestion;
+      unattempted.innerHTML = unattemptedQuestion;
+      wrong.innerHTML = wrongQuestion;
+      wrapper.style.width = "0";
+      wrapper.style.transform = "scale(0)";
+  })
+  .catch((error) => {
+      console.error("Error adding document: ", error);
+  });
+}
