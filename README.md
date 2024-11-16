@@ -5,17 +5,17 @@ Virtual Lab Potensial Elektroda Standar adalah sebuah aplikasi edukasi interakti
 1. Penambahan Fitur Baru
      1) Firebase Authentication
         Firebase Authentication adalah layanan dari Firebase yang menyediakan solusi autentikasi pengguna yang mudah dan aman untuk aplikasi mobile dan web. Berikut beberapa fitur baru yang ditambahkan pada web melalui firebase authentication:
-          ○  Login/Sign Up dengan Email
-          ○  Login/Sign Up dengan Google Account
-          ○  Forgot Password, mereset password user yang lupa dengan password-nya
+               ○  Login/Sign Up dengan Email
+               ○  Login/Sign Up dengan Google Account
+               ○  Forgot Password, mereset password user yang lupa dengan password-nya
      2) Cloud Firestore
         Cloud Firestore adalah database NoSQL dari Google Firebase yang dirancang untuk menyimpan dan mengelola data aplikasi secara real-time. Database yang disimpan berupa hasil quiz user yang terautentikasi dengan web.
 2. Perbaikan Fitur
      1) Pre-Test
-        ○ Mengubah waktu pengerjaan kuis tiap soal dari 15 detik menjadi 30 detik
-        ○ Memperbaiki logik attempted dan unattempted pada hasil quiz
+             ○ Mengubah waktu pengerjaan kuis tiap soal dari 15 detik menjadi 30 detik
+             ○ Memperbaiki logik attempted dan unattempted pada hasil quiz
      2) Material
-        ○ Menambahkan beberapa video materi terkait Potensial Elektroda Standar
-        ○ Tampilan baru
+             ○ Menambahkan beberapa video materi terkait Potensial Elektroda Standar
+             ○ Tampilan baru
 ## Link Website
 https://tugas-02-pawm.vercel.app/ 
