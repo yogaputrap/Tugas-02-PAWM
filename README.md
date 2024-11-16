@@ -4,6 +4,7 @@ Virtual Lab Potensial Elektroda Standar adalah sebuah aplikasi edukasi interakti
 ## Update Fitur
 1. Penambahan Fitur Baru
      1) Firebase Authentication
+        
         Firebase Authentication adalah layanan dari Firebase yang menyediakan solusi autentikasi pengguna yang mudah dan aman untuk aplikasi mobile dan web. Berikut beberapa fitur baru yang ditambahkan pada web melalui firebase authentication:
         
         ○  Login/Sign Up dengan Email
@@ -12,6 +13,7 @@ Virtual Lab Potensial Elektroda Standar adalah sebuah aplikasi edukasi interakti
         
         ○  Forgot Password, mereset password user yang lupa dengan password-nya
      2) Cloud Firestore
+        
         Cloud Firestore adalah database NoSQL dari Google Firebase yang dirancang untuk menyimpan dan mengelola data aplikasi secara real-time. Database yang disimpan berupa hasil quiz user yang terautentikasi dengan web.
 2. Perbaikan Fitur
      1) Pre-Test
