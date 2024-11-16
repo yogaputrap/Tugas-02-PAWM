@@ -1,5 +1,5 @@
 # Virtual Lab Kimia - Potensial Elektroda Standar
-## Deskripsi Proyek
+## Deskripsi Website
 Virtual Lab Potensial Elektroda Standar adalah sebuah aplikasi edukasi interaktif yang dirancang untuk membantu pengguna memahami konsep potensial elektroda standar melalui pendekatan yang menarik dan intuitif. Aplikasi ini dilengkapi dengan fitur pre-test untuk mengukur pemahaman awal, materi pembelajaran berupa video, dan simulasi laboratorium virtual dengan fitur drag and drop untuk mengamati nilai potensial elektroda standar dari berbagai logam.
 ## Update Fitur
 1. Penambahan Fitur Baru
